@@ -6,61 +6,20 @@
 </head>
 <body>
 
-<div class="main">
-    <h2>Device Orientation</h2>
-    <table>
-        <tr>
-            <td>Event Supported</td>
-            <td id="doEvent"></td>
-        </tr>
-        <tr>
-            <td>Tilt Left/Right [gamma]</td>
-            <td id="doTiltLR"></td>
-        </tr>
-        <tr>
-            <td>Tilt Front/Back [beta]</td>
-            <td id="doTiltFB"></td>
-        </tr>
-        <tr>
-            <td>Direction [alpha]</td>
-            <td id="doDirection"></td>
-        </tr>
-    </table>
-</div>
-
 <div id="output2">
 </div>
 
 <script>
-    if (window.DeviceOrientationEvent) {
-        document.getElementById("doEvent").innerHTML = "DeviceOrientation";
-        // Listen for the deviceorientation event and handle the raw data
-        window.addEventListener('deviceorientation', function(eventData) {
-            // gamma is the left-to-right tilt in degrees, where right is positive
-            var tiltLR = eventData.gamma;
-
-            // beta is the front-to-back tilt in degrees, where front is positive
-            var tiltFB = eventData.beta;
-
-            // alpha is the compass direction the device is facing in degrees
-            var dir = eventData.alpha;
-
-            // call our orientation event handler
-            document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
-            document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
-            document.getElementById("doDirection").innerHTML = Math.round(dir);
-
-        }, false);
+    if (window.DeviceMotionEvent) {
+        window.addEventListener("devicemotion", function(event) {
+            document.getElementById("output2").innerHTML = "acceleration x: " + Math.round(event.accelerationIncludingGravity.x) +
+                    "y: " + Math.round(event.accelerationIncludingGravity.y) + " z: " + Math.round(event.accelerationIncludingGravity.z) +
+                    " / interval " +
+                    event.interval;
+        }, true);
     } else {
-        document.getElementById("doEvent").innerHTML = "Not supported."
+        document.getElementById("doEvent").innerHTML = "devicemotion Not supported."
     }
-
-    window.addEventListener("devicemotion", function(event) {
-        document.getElementByID("output2").innerHTML = "acceleration x: " + event.accelerationIncludingGravity.x +
-                "y: " + event.accelerationIncludingGravity.y + " z: " + event.accelerationIncludingGravity.z +
-                " / Rotation Rate alpha " +
-                event.rotationRate.alpha + " beta " + event.rotationRate.beta + " gamma " + event.rotationRate.gamma;
-    }, true);
 </script>
 </body>
 </html>
