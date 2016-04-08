@@ -9,13 +9,32 @@
 <div id="output2">
 </div>
 
+<canvas id="myCanvas" width="720" height="1280" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.</canvas>
+
+
 <script>
+    var x = 720/2;
+    var y = 1280/2;
+
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+
     if (window.DeviceMotionEvent) {
         window.addEventListener("devicemotion", function(event) {
-            document.getElementById("output2").innerHTML = "acceleration x: " + Math.round(event.accelerationIncludingGravity.x) +
-                    "y: " + Math.round(event.accelerationIncludingGravity.y) + " z: " + Math.round(event.accelerationIncludingGravity.z) +
+           console.log(event.acceleration);
+            document.getElementById("output2").innerHTML = "acceleration x: " + Math.round(event.acceleration.x) +
+                    "y: " + Math.round(event.acceleration.y) + " z: " + Math.round(event.acceleration.z) +
                     " / interval " +
                     event.interval;
+
+            x += event.acceleration.x;
+            y += event.acceleration.y;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
         }, true);
     } else {
         document.getElementById("doEvent").innerHTML = "devicemotion Not supported."
