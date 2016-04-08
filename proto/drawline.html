@@ -30,8 +30,8 @@
                     " / interval " +
                     event.interval;
 
-            x += event.acceleration.x;
-            y += event.acceleration.y;
+            x -= Math.abs(event.acceleration.x) > 1 ? event.acceleration.x : 0;
+            y += Math.abs(event.acceleration.y) > 1 ? event.acceleration.y : 0;
 
             ctx.lineTo(x, y);
             ctx.stroke();
