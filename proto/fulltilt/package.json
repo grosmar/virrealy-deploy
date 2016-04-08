@@ -1,0 +1,51 @@
+{
+  "name": "fulltilt",
+  "title": "Full Tilt",
+  "version": "0.7.0",
+  "description": "Standalone device orientation + device motion normalization and conversion library",
+  "homepage": "http://github.com/richtr/Full-Tilt",
+  "author": {
+    "name": "Rich Tibbett"
+  },
+  "keywords": [
+    "full tilt",
+    "fulltilt",
+    "deviceorientation",
+    "devicemotion",
+    "compass",
+    "quaternions",
+    "rotation",
+    "matrix",
+    "euler",
+    "tait bryan",
+    "angles"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/richtr/Full-Tilt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/richtr/Full-Tilt/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/richtr/Full-Tilt/blob/master/LICENSE.txt"
+    }
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-concat": "~0.5.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-install-dependencies": "^0.2.0"
+  },
+  "gitHead": "22a1007af229153e5b897afd1fc903d7d91fe481",
+  "readme": "Full Tilt\n==========\n\n#### Standalone device orientation + motion detection, normalization and conversion library ####\n\nFull Tilt is a Promise-based JavaScript library that detects support for device orientation and device motion sensor data and then normalizes that data across different platforms for web applications to use within their own 'world' or 'game' based frames.\n\nFull Tilt provides developers with three complementary device orientation sensor output representations – screen-adjusted Quaternions, Rotation Matrixes and Euler Angles – that can be used to create 2D or 3D experiences in web browsers that work consistently across all mobile web platforms and in all screen orientations.\n\nThis library also provides all the functions necessary to convert between different device orientation types. Orientation angle conversion is possible via this API from/to Device Orientation and Motion API-derived [Euler Angles](http://en.wikipedia.org/wiki/Euler_angles), [Rotation Matrices](http://en.wikipedia.org/wiki/Rotation_matrix) and/or [Quaternions](http://en.wikipedia.org/wiki/Quaternion) (i.e. from raw sensor inputs that supply intrinsic Tait-Bryan angles of type Z-X'-Y').\n\n* [Installation](#installation)\n* [Usage](#usage)\n* [Documentation](https://github.com/richtr/Full-Tilt/wiki/Full-Tilt-API-Documentation)\n\n## Installation ##\n\nThis library is available on [Bower](http://bower.io/) as **fulltilt**:\n\n```bash\n$> bower install fulltilt\n```\n\nYou will also need a Promise polyfill for older browsers.\n\n```bash\n$> bower install es6-promise\n```\n\nAlternatively, you can manually add [fulltilt.js](https://github.com/richtr/Full-Tilt/blob/master/dist/fulltilt.js) (or the [minified version of fulltilt.js](https://github.com/richtr/Full-Tilt/blob/master/dist/fulltilt.min.js)) to your project.\n\n## Usage ##\n\nYou can request device orientation and motion sensor changes by requesting a Promise object with either [`FULLTILT.getDeviceOrientation()`](https://github.com/richtr/Full-Tilt/wiki/Full-Tilt-API-Documentation#fulltiltgetdeviceorientation--options--) or [`FULLTILT.getDeviceMotion()`](https://github.com/richtr/Full-Tilt/wiki/Full-Tilt-API-Documentation#fulltiltgetdevicemotion--options--).\n\nIf the requested sensor is supported on the current device then this Promise object will resolve to [`FULLTILT.DeviceOrientation`](https://github.com/richtr/Full-Tilt/wiki/Full-Tilt-API-Documentation#fulltiltdeviceorientation) and [`FULLTILT.DeviceMotion`](https://github.com/richtr/Full-Tilt/wiki/Full-Tilt-API-Documentation#fulltiltdevicemotion) as appropriate. This returned object can then be used to interact with the device's sensors via the FULLTILT APIs.\n\nIf the requested sensor is not supported on the current device then this Promise object will reject with a simple error message string. In such circumstances it is recommended to provide manual fallback controls so users can still interact with your web page appropriately.\n\nHere is a quick example of how to use Full Tilt:\n\n```html\n<script>\n  // Create a new FULLTILT Promise for e.g. *compass*-based deviceorientation data\n  var promise = new FULLTILT.getDeviceOrientation({ 'type': 'world' });\n\n  // FULLTILT.DeviceOrientation instance placeholder\n  var deviceOrientation;\n\n  promise\n    .then(function(controller) {\n      // Store the returned FULLTILT.DeviceOrientation object\n      deviceOrientation = controller;\n    })\n    .catch(function(message) {\n      console.error(message);\n\n      // Optionally set up fallback controls...\n      // initManualControls();\n    });\n\n  (function draw() {\n\n    // If we have a valid FULLTILT.DeviceOrientation object then use it\n    if (deviceOrientation) {\n\n      // Obtain the *screen-adjusted* normalized device rotation\n      // as Quaternion, Rotation Matrix and Euler Angles objects\n      // from our FULLTILT.DeviceOrientation object\n      var quaternion = deviceOrientation.getScreenAdjustedQuaternion();\n      var matrix = deviceOrientation.getScreenAdjustedMatrix();\n      var euler = deviceOrientation.getScreenAdjustedEuler();\n\n      // Do something with our quaternion, matrix, euler objects...\n      console.debug(quaternion);\n      console.debug(matrix);\n      console.debug(euler);\n\n    }\n\n    // Execute function on each browser animation frame\n    requestAnimationFrame(draw);\n\n  })();\n</script>\n```\n\nFull [API documentation](https://github.com/richtr/Full-Tilt/wiki/Full-Tilt-API-Documentation) is available on the project wiki and [usage examples](https://github.com/richtr/Full-Tilt/tree/master/examples) are also provided.\n\n## References ##\n\n* [Full Tilt API Documentation](https://github.com/richtr/Full-Tilt/wiki/Full-Tilt-API-Documentation)\n* [W3C DeviceOrientation Events Spec](http://w3c.github.io/deviceorientation/spec-source-orientation.html)\n",
+  "readmeFilename": "README.md",
+  "_id": "fulltilt@0.7.0",
+  "_shasum": "4fceda9fbf00c0abb63d25d144c8f89cf0e3a06a",
+  "_from": "git+https://github.com/richtr/Full-Tilt.git",
+  "_resolved": "git+https://github.com/richtr/Full-Tilt.git#22a1007af229153e5b897afd1fc903d7d91fe481"
+}
