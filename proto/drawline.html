@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="main">
+    <h2>Device Orientation</h2>
+    <table>
+        <tr>
+            <td>Event Supported</td>
+            <td id="doEvent"></td>
+        </tr>
+        <tr>
+            <td>Tilt Left/Right [gamma]</td>
+            <td id="doTiltLR"></td>
+        </tr>
+        <tr>
+            <td>Tilt Front/Back [beta]</td>
+            <td id="doTiltFB"></td>
+        </tr>
+        <tr>
+            <td>Direction [alpha]</td>
+            <td id="doDirection"></td>
+        </tr>
+    </table>
+</div>
+
+<div class="container" style="perspective: 300;">
+    <img src="html5_logo.png" id="imgLogo" class="logo">
+</div>
+
+<script>
+    if (window.DeviceOrientationEvent) {
+        document.getElementById("doEvent").innerHTML = "DeviceOrientation";
+        // Listen for the deviceorientation event and handle the raw data
+        window.addEventListener('deviceorientation', function(eventData) {
+            // gamma is the left-to-right tilt in degrees, where right is positive
+            var tiltLR = eventData.gamma;
+
+            // beta is the front-to-back tilt in degrees, where front is positive
+            var tiltFB = eventData.beta;
+
+            // alpha is the compass direction the device is facing in degrees
+            var dir = eventData.alpha;
+
+            // call our orientation event handler
+            document.getElementById("doTiltLR").innerHTML = Math.round(tiltLR);
+            document.getElementById("doTiltFB").innerHTML = Math.round(tiltFB);
+            document.getElementById("doDirection").innerHTML = Math.round(dir);
+
+        }, false);
+    } else {
+        document.getElementById("doEvent").innerHTML = "Not supported."
+    }
+</script>
+</body>
+</html>
