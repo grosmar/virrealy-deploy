@@ -28,8 +28,7 @@
     </table>
 </div>
 
-<div class="container" style="perspective: 300;">
-    <img src="html5_logo.png" id="imgLogo" class="logo">
+<div id="output2">
 </div>
 
 <script>
@@ -55,6 +54,13 @@
     } else {
         document.getElementById("doEvent").innerHTML = "Not supported."
     }
+
+    window.addEventListener("devicemotion", function(event) {
+        document.getElementByID("output2").innerHTML = "acceleration x: " + event.accelerationIncludingGravity.x +
+                "y: " + event.accelerationIncludingGravity.y + " z: " + event.accelerationIncludingGravity.z +
+                " / Rotation Rate alpha " +
+                event.rotationRate.alpha + " beta " + event.rotationRate.beta + " gamma " + event.rotationRate.gamma;
+    }, true);
 </script>
 </body>
 </html>
