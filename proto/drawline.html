@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="gyronorm.complete.min.js"></script>
 </head>
 <body>
 
@@ -12,69 +13,47 @@
 </div>
 <div id="output3">
 </div>
+<div id="output4">
+</div>
 
 <canvas id="myCanvas" width="720" height="1280" style="border:1px solid #d3d3d3;">
     Your browser does not support the HTML5 canvas tag.</canvas>
 
 
-<script>
-    var x = 720/2;
-    var y = 1280/2;
+<script type="text/javascript">
+    var gn = new GyroNorm();
 
-    var vx = 0;
-    var vy = 0;
-    var speed = 0;
-    var friction = 0.85;
+    gn.init().then(function(){
+        gn.start(function(data){
 
-    var angle = 0;
-
-    var c = document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-
-    if (window.DeviceOrientationEvent) {
-        window.addEventListener('deviceorientation', function(event) {
-            document.getElementById("output1").innerHTML = event.alpha + ' : ' + event.beta + ' : ' + event.gamma + " absolute : " + DeviceOrientationEvent.absolute;
-            angle = Math.round(event.alpha);
-        }, false);
+            document.getElementById("output1").innerHTML = "data.do.alpha: " + data.do.alpha + "data.do.beta: " + data.do.beta + " data.do.gamma: " + data.do.gamma + " data.do.absolute: " + data.do.absolute;
+            document.getElementById("output2").innerHTML = "data.dm.x: " + data.dm.x + "data.dm.y: " + data.dm.y + " data.dm.z: " + data.dm.z;
+            document.getElementById("output3").innerHTML = "data.dm.gx: " + data.dm.gx + "data.dm.gy: " + data.dm.gy + " data.dm.gz: " + data.dm.gz;
+            document.getElementById("output4").innerHTML = "data.dm.alpha: " + data.dm.alpha + "data.dm.beta: " + data.dm.beta + " data.dm.gamma: " + data.dm.gamma;
 
 
-    } else {
-        document.getElementById("doEvent").innerHTML = "deviceorientation Not supported."
-    }
 
-    if (window.DeviceMotionEvent) {
-        window.addEventListener("devicemotion", function(event) {
-            document.getElementById("output2").innerHTML = "acceleration x: " + Math.round(event.acceleration.x*10)/10 +
-                    "<br/> y: " + Math.round(event.acceleration.y*10)/10 + "<br/> z: " + Math.round(event.acceleration.z*10)/10 +
-                    " / interval " +
-                    event.interval;
+            // Process:
+            // data.do.alpha    ( deviceorientation event alpha value )
+            // data.do.beta     ( deviceorientation event beta value )
+            // data.do.gamma    ( deviceorientation event gamma value )
+            // data.do.absolute ( deviceorientation event absolute value )
 
-            speed -= Math.abs(event.acceleration.y);
-            //vy += event.acceleration.y/3;
+            // data.dm.x        ( devicemotion event acceleration x value )
+            // data.dm.y        ( devicemotion event acceleration y value )
+            // data.dm.z        ( devicemotion event acceleration z value )
 
-            // vx *= friction;
-            // vy *= friction;
-            speed *= friction;
+            // data.dm.gx       ( devicemotion event accelerationIncludingGravity x value )
+            // data.dm.gy       ( devicemotion event accelerationIncludingGravity y value )
+            // data.dm.gz       ( devicemotion event accelerationIncludingGravity z value )
 
-            x += speed * Math.cos(angle);
-            y += speed * Math.sin(angle);
-
-            // document.getElementById("output3").innerHTML = "acceleration x: " + x + "y: " + y + " speed: " + speed;
-
-            //x -= Math.abs(vx) > 1 ? vx : 0;
-            //y += Math.abs(vy) > 1 ? vy : 0;
-
-//            x -= Math.abs(event.acceleration.x) > 1 ? event.acceleration.x : 0;
-//            y += Math.abs(event.acceleration.y) > 1 ? event.acceleration.y : 0;
-
-            ctx.lineTo(x, y);
-            ctx.stroke();
-        }, true);
-    } else {
-        document.getElementById("doEvent").innerHTML = "devicemotion Not supported."
-    }
+            // data.dm.alpha    ( devicemotion event rotationRate alpha value )
+            // data.dm.beta     ( devicemotion event rotationRate beta value )
+            // data.dm.gamma    ( devicemotion event rotationRate gamma value )
+        });
+    }).catch(function(e){
+        // Catch if the DeviceOrientation or DeviceMotion is not supported by the browser or device
+    });
 </script>
 </body>
 </html>
