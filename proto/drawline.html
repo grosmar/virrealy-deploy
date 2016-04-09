@@ -28,7 +28,8 @@
 
             var force = Math.round(Math.sqrt(data.dm.gx*data.dm.gx+data.dm.gy*data.dm.gy)*100)/100;
             var force2 = Math.round(Math.sqrt(data.dm.x*data.dm.x+data.dm.y*data.dm.y)*100)/100;
-
+console.log(force);
+console.log(force2);
             document.getElementById("output1").innerHTML = "data.do.alpha: " + data.do.alpha + "data.do.beta: " + data.do.beta + " data.do.gamma: " + data.do.gamma + " data.do.absolute: " + data.do.absolute;
             document.getElementById("output2").innerHTML = "force2 : " + force2 + "data.dm.x: " + data.dm.x + "data.dm.y: " + data.dm.y + " data.dm.z: " + data.dm.z;
             document.getElementById("output3").innerHTML = "force : " +force+" data.dm.gx: " + data.dm.gx + "data.dm.gy: " + data.dm.gy + " data.dm.gz: " + data.dm.gz;
