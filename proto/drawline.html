@@ -10,6 +10,8 @@
 </div>
 <div id="output2">
 </div>
+<div id="output3">
+</div>
 
 <canvas id="myCanvas" width="720" height="1280" style="border:1px solid #d3d3d3;">
     Your browser does not support the HTML5 canvas tag.</canvas>
@@ -56,8 +58,11 @@
             // vy *= friction;
             speed *= friction;
 
-            x += speed * Math.Cos(angle);
-            y += speed * Math.Sin(angle);
+            x += speed * Math.cos(angle);
+            y += speed * Math.sin(angle);
+
+            document.getElementById("output3").innerHTML = "acceleration x: " + x +
+                    "y: " + y + " speed: " + speed;
 
             //x -= Math.abs(vx) > 1 ? vx : 0;
             //y += Math.abs(vy) > 1 ? vy : 0;
