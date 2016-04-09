@@ -226,7 +226,7 @@ function errorCallback(error) {
     function createModel(){
       var object = new THREE.Object3D(),
           geometry = new THREE.SphereGeometry(1, 15, 15, Math.PI),
-          texture = THREE.ImageUtils.loadTexture("textures/earth.jpg"),
+          texture = THREE.ImageUtils.loadTexture("textures/apple.jpg"),
           material = new THREE.MeshBasicMaterial( {map: texture} ),
           mesh = new THREE.Mesh(geometry, material);
       
