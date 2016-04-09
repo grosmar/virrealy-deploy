@@ -183,7 +183,7 @@ form {
     text-transform: uppercase;
 }
 .stage3_table {
-    margin-bottom: 3%;
+    margin: 0 auto 3%;
 }
 .stage3_table tr td {
     vertical-align: middle;
