@@ -27,5 +27,15 @@
 	<div class="logo"><img src="img/logo.png" width="238" height="239" border="0"></div>
 </div>
 
+<script>
+var myVideo = document.getElementById('bgvid');
+
+myVideo.addEventListener('canplay', function() {
+  myVideo.play();
+});
+
+myVideo.load();
+myVideo.play();
+</script>
 </body>
 </html>
