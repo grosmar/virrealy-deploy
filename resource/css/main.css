@@ -84,8 +84,7 @@ video#bgvid {
 #textbox {
     position: relative;
     z-index: 100;
-    padding-top: 5%;
-
+    padding: 5% 1% 0;
 }
 #textbox h1.header {
     color:#ffffff;
@@ -186,6 +185,16 @@ form {
     font-weight: bold;
     margin-top: 1%;
     text-transform: uppercase;
+}
+@-webkit-keyframes blinker {
+    from { opacity: 1.0; }
+    to { opacity: 0.0; }
+}
+.error {
+    -webkit-animation-name: blinker;
+    -webkit-animation-iteration-count: 3;
+    -webkit-animation-timing-function: cubic-bezier(.5, 0, 1, 1);
+    -webkit-animation-duration: 0.5s;
 }
 .stage3_table {
     margin: 0 auto 3%;
