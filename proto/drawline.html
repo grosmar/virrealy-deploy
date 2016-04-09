@@ -36,7 +36,7 @@
     if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function(event) {
             document.getElementById("output1").innerHTML = event.alpha + ' : ' + event.beta + ' : ' + event.gamma + " absolute : " + DeviceOrientationEvent.absolute;
-            angle = event.alpha;
+            angle = Math.round(event.alpha);
         }, false);
 
 
@@ -51,7 +51,7 @@
                     " / interval " +
                     event.interval;
 
-            speed += Math.abs(event.acceleration.y);
+            speed -= Math.abs(event.acceleration.y);
             //vy += event.acceleration.y/3;
 
             // vx *= friction;
