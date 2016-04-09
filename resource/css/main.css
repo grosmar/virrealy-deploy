@@ -115,7 +115,7 @@ video#bgvid {
 #textbox p {
     text-align: center;
     font-size: 35px;
-    margin-bottom: 5%;
+    margin-bottom: 3%;
 }
 #textbox p.black {
     color: #000000;
@@ -176,7 +176,7 @@ form {
 }
 .error {
     color:#c30505;
-    font-size: 40px;
+    font-size: 30px;
     text-align: center;
     font-weight: bold;
     margin-top: 1%;
