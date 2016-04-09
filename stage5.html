@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+	<title>VIRREALY Dating Game</title>
+	<script type="text/javascript" src="libs/Three.js"></script>
+	<script type="text/javascript" src="svd.js"></script>
+	<script type="text/javascript" src="posit1.js"></script> 
+	<script type="text/javascript" src="cv.js"></script> 
+	<script type="text/javascript" src="aruco.js"></script> 
+	<script type="text/javascript" src="https://webrtc.github.io/samples/src/js/adapter.js"></script> 
+	<script type="text/javascript" src="https://webrtc.github.io/samples/src/js/common.js"></script>
+    <script type="text/javascript" src="scripts/stage5.js"></script>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body id="message_layout">
+	
+<video id="video" width=320 height=240 autoplay="true" style="display:none;"></video>
+
+<div id="textbox">
+    <table cellpadding="0" cellspacing="0" border="0" class="stage3_table" id="stage3_table" align="center">
+        <tr>
+            <td valign="top"><img src="img/code.jpg" width="165" height="165" border="0"></td>
+            <td valign="top">
+                <h1 class="black">You’re almost there.</h1>
+                <p class="tabletext"><strong>Remember:</strong> don’t just look, but see!</p>
+                <p class="tabletext">If you find the sign, there will be no return!</p>
+            </td>
+        </tr>
+    </table>
+	<div class="camera_window" id="camera_window">
+      <canvas id="canvas" style="width: 640px; height: 360px; border: solid 1px black; display: none"></canvas>
+      <div id="container" style="width: 640px; height: 360px; border: solid 1px black; background: green;"></div>
+	</div>
+    <div id="nextArea" style="display:none;">
+        <p class="tabletext"><strong>Here you are in front of the apple of love</strong></p>
+        <p class="tabletext"><img src="img/hearts2.png" width="498" height="276" border="0"></p>
+        <p class="tabletext">The legend says: if a pair <strong>kiss each other</strong> here,<br>then they will have a <strong>long, happy life</strong> together.</p>
+            <audio id="song">
+          <source src="song.mp3" type="audio/mpeg" id="source">
+        </audio>
+        <div class="ghost_button_containter"  id="nextButton">
+            <div class="ghost_button black">
+                <a href="stage6.html">GO TO THE NEXT ADVENTURE</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="logo"><img src="img/logo.png" width="238" height="239" border="0"></div>
+</body>
+</html>

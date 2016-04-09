@@ -29,10 +29,11 @@ function hidePoint( )
 
 function deviceMotionListener(e)
 {
-	ax = event.accelerationIncludingGravity.x;
-	ay = event.accelerationIncludingGravity.y;
-	az = event.accelerationIncludingGravity.z;
-
+	
+	ax = e.accelerationIncludingGravity.x;
+	ay = e.accelerationIncludingGravity.y;
+	az = e.accelerationIncludingGravity.z;
+	
 	if ( e.rotationRate ) {
 		document.getElementById("rotationAlpha").innerHTML = e.rotationRate.alpha;
 		document.getElementById("rotationBeta").innerHTML = e.rotationRate.beta;
@@ -101,6 +102,9 @@ function tick()
 
 		}
 	}
+	
+	posX = Math.max(0, Math.min(posX, 1240));
+	posY = Math.max(0, Math.min(posY, 500));
 
 	ctx.lineTo(posX,posY);
 	ctx.lineWidth=5;
