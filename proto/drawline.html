@@ -23,6 +23,8 @@
     var vy = 0;
     var friction = 0.85;
 
+    var angle = 0;
+
     var c = document.getElementById("myCanvas");
     var ctx = c.getContext("2d");
     ctx.beginPath();
@@ -32,7 +34,7 @@
         window.addEventListener('deviceorientation', function(event) {
             document.getElementById("output1").innerHTML = event.alpha + ' : ' + event.beta + ' : ' + event.gamma + " absolute : " + DeviceOrientationEvent.absolute;
         });
-
+        angle = event.alpha;
 
     } else {
         document.getElementById("doEvent").innerHTML = "deviceorientation Not supported."
@@ -46,14 +48,17 @@
                     " / interval " +
                     event.interval;
 
-            vx += event.acceleration.x/3;
-            vy += event.acceleration.y/3;
+            vx += Math.abs(event.acceleration.x) > 1 ? event.acceleration.x/3 : 0;
+            //vy += event.acceleration.y/3;
 
             vx *= friction;
-            vy *= friction;
+            //vy *= friction;
 
-            x -= Math.abs(vx) > 1 ? vx : 0;
-            y += Math.abs(vy) > 1 ? vy : 0;
+            x += vx * Math.Cos(angle);
+            y += vx * Math.Sin(angle);
+
+            //x -= Math.abs(vx) > 1 ? vx : 0;
+            //y += Math.abs(vy) > 1 ? vy : 0;
 
 //            x -= Math.abs(event.acceleration.x) > 1 ? event.acceleration.x : 0;
 //            y += Math.abs(event.acceleration.y) > 1 ? event.acceleration.y : 0;
