@@ -326,14 +326,12 @@ function errorCallback(error) {
             </div>
         </div>
     </div>
-		
-	<script>
-		document.getElementById("source").src = location.href.substring(0, location.href.lastIndexOf("/") + 1).replace("https", "http") + "song.mp3";
-		document.write(document.getElementById("source").src );
-		
-	</script>
 </div>
 <div class="logo"><img src="img/logo.png" width="238" height="239" border="0"></div>
+
+<script>
+    document.getElementById("source").src = location.href.substring(0, location.href.lastIndexOf("/") + 1).replace("https", "http") + "song.mp3";
+</script>
 
 </body>
 </html>
