@@ -114,8 +114,14 @@ video#bgvid {
 }
 #textbox p {
     text-align: center;
-    font-size: 30px;
+    font-size: 35px;
     margin-bottom: 5%;
+}
+#textbox p.black {
+    color: #000000;
+}
+#textbox p.question {
+    text-transform: uppercase;
 }
 .ghost_button_containter {
     text-align: center;
@@ -146,10 +152,33 @@ video#bgvid {
 .ghost_button.black a {
     color: #000000;
 }
+/*text site*/
 #message_layout {
     background: url(../img/text_bg.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+form {
+    text-align: center;
+}
+.textinput {
+    border:0;
+    width: 40%;
+    font-size: 40px;
+    color: #8b8b8b;
+    padding: 20px;
+}
+.submit_button {
+    padding: 20px;
+    font-size: 40px;
+}
+.error {
+    color:#c30505;
+    font-size: 40px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 1%;
+    text-transform: uppercase;
 }
