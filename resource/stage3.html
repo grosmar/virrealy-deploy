@@ -5,27 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
 	<title>VIRREALY Dating Game</title>
 	<link rel="stylesheet" href="css/main.css">
-		
-	<script>
-	var validateCount = 0;
-	
-	// IN BETTER TIMES hexMACHINA code would go there. but now we are happy to produce it at all.
-	
-	function validate()
-	{
-		if ( validateCount < 1 )
-		{
-			validateCount++;
-			document.getElementsByClassName("error")[0].style.display = "block";
-		}
-		else
-		{
-			location.href = "stage4.html";
-		}
-		
-		return false;
-	}
-	</script>
 </head>
 <body id="message_layout">
 
@@ -39,10 +18,10 @@
 				<p class="tabletext">The place, where every story begins.</p>
 				<div class="ghost_button_containter">
 					<div class="ghost_button black">
-						<a href="#" onclick="return validate()">I found the place</a>
+						<a href="#">I've found the place</a>
 					</div>
 				</div>
-				<div class="error" style="display:none">Wrong place! Try again!</div>
+				<div class="error">Wrong place! Try again!</div>
 			</td>
 		</tr>
 	</table>

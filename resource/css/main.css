@@ -205,3 +205,9 @@ form {
     padding-left: 3%;
     text-align: left!important;
 }
+.camera_window {
+    overflow:hidden;
+    height: 460px;
+    width: 640px;
+    margin: 0 auto;
+}

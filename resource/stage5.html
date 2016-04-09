@@ -245,7 +245,12 @@ function errorCallback(error) {
 		if ( wasFound == false )
 		{
 			wasFound = true;
+			
+			setTimeout( function () {
+            document.getElementById("video").style.display = "none";
+            document.getElementById("stage3_table").style.display = "none";
 			document.getElementById("nextArea").style.display = "block";
+			}, 5000 );
 			//document.getElementById("song").play();
 		}
 		
@@ -294,34 +299,34 @@ function errorCallback(error) {
 <video id="video" width=320 height=240 autoplay="true" style="display:none;"></video>
 
 <div id="textbox">
-	<p class="black">You’re almost there.<br>
-	Remember: don’t just look, but see!<br>
-	If you find the sign, there will be no return.<br>
-	<img src="img/code.jpg"></p>
-	<center>
-	<div style="overflow:hidden; height: 460px">
+    <table cellpadding="0" cellspacing="0" border="0" class="stage3_table" id="stage3_table" align="center">
+        <tr>
+            <td valign="top"><img src="img/code.jpg" width="165" height="165" border="0"></td>
+            <td valign="top">
+                <h1 class="black">You’re almost there.</h1>
+                <p class="tabletext"><strong>Remember:</strong> don’t just look, but see!</p>
+                <p class="tabletext">If you find the sign, there will be no return!</p>
+            </td>
+        </tr>
+    </table>
+	<div class="camera_window">
       <canvas id="canvas" style="width: 640px; height: 360px; border: solid 1px black; display: none"></canvas>
       <div id="container" style="width: 640px; height: 360px; border: solid 1px black; background: green;"></div>
 	</div>
+    <div id="nextArea" style="display:none;">
+        <p class="tabletext"><strong>Here you are in front of the apple of love</strong></p>
+        <p class="tabletext"><img src="img/hearts.png" width="488" height="266" border="0"></p>
+        <p class="tabletext">The legend says: if a pair <strong>kiss each other</strong> here,<br>then they will have a <strong>long, happy life</strong> together.</p>
+            <audio id="song" controls>
+          <source src="song.mp3" type="audio/mpeg">
+        </audio>
+        <div class="ghost_button_containter"  id="nextButton">
+            <div class="ghost_button black">
+                <a href="stage6.html">GO TO THE NEXT ADVENTURE</a>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div id="nextArea" style="display:none;">
-	
-	<center>
-		<p class="black">Here you are in front of the apple of love.<br>The legend says that if you kiss each other here, then after you can hear the fairies singing your song on silent nights</p>
-		<audio id="song" controls>
-	  <source src="song.mp3" type="audio/mpeg">
-	</audio>
-	</center>
-	<div class="ghost_button_containter"  id="nextButton">
-		<div class="ghost_button black">
-			<a href="stage6.html">Go on</a>
-		</div>
-	</div>
-		
-	
-</div>
-
 <div class="logo"><img src="img/logo.png" width="238" height="239" border="0"></div>
 
 </body>
