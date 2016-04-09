@@ -19,7 +19,7 @@
 
     var vx = 0;
     var vy = 0;
-    var friction = 0.96;
+    var friction = 0.85;
 
     var c = document.getElementById("myCanvas");
     var ctx = c.getContext("2d");
@@ -33,8 +33,9 @@
                     "y: " + Math.round(event.acceleration.y) + " z: " + Math.round(event.acceleration.z) +
                     " / interval " +
                     event.interval;
-            vx += event.acceleration.x;
-            vy += event.acceleration.y;
+            
+            vx += event.acceleration.x/3;
+            vy += event.acceleration.y/3;
 
             vx *= friction;
             vy *= friction;
