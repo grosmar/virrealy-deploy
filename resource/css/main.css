@@ -1,0 +1,144 @@
+/* CSS reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+/*CSS reset END*/
+html {
+    font-family: Arial;
+}
+
+video#bgvid {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background: url(polina.jpg) no-repeat;
+    background-size: cover;
+}
+.frame_overlay {
+    position:absolute;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: url(../img/frame.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.frame_overlay .logo {
+    position: absolute;
+    z-index: 15;
+    right: 20px;
+    bottom: 20px;
+}
+#textbox {
+    position: relative;
+    z-index: 100;
+    padding-top: 150px;
+
+}
+#textbox h1.header {
+    color:#ffffff;
+    text-transform: uppercase;
+    font-size: 45px;
+    text-align: center;
+    font-weight: normal;
+    margin-bottom: 120px;
+}
+#textbox h1.header span {
+    font-size: 70px;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
+#textbox h2 {
+    text-align: center;
+    color: #ffffff;
+    font-size:30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 120px;
+}
+#textbox h2 strong {
+    font-weight: 800;
+}
+
+.ghost_button_containter {
+    text-align: center;
+}
+.ghost_button {
+    position: relative;
+    z-index: 100;
+    margin: 0 auto;
+    display: inline-block;
+}
+.ghost_button a {
+    display:block;
+    padding: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 3px;
+    font-size: 30px;
+}
+.ghost_button.white {
+    border:5px solid #ffffff;
+}
+.ghost_button.white a {
+    color: #ffffff;
+}
+.ghost_button.black {
+    border:5px solid #000;
+}
+.ghost_button.black a {
+    color: #000000;
+}
