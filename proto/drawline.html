@@ -21,6 +21,7 @@
 
     var vx = 0;
     var vy = 0;
+    var speed = 0;
     var friction = 0.85;
 
     var angle = 0;
@@ -48,14 +49,15 @@
                     " / interval " +
                     event.interval;
 
-            vx += Math.abs(event.acceleration.x) > 1 ? event.acceleration.x/3 : 0;
+            speed += event.acceleration.y > 0 ? event.acceleration.y/3 : 0;
             //vy += event.acceleration.y/3;
 
-            vx *= friction;
-            //vy *= friction;
+            // vx *= friction;
+            // vy *= friction;
+            speed *= friction;
 
-            x += vx * Math.Cos(angle);
-            y += vx * Math.Sin(angle);
+            x += speed * Math.Cos(angle);
+            y += speed * Math.Sin(angle);
 
             //x -= Math.abs(vx) > 1 ? vx : 0;
             //y += Math.abs(vy) > 1 ? vy : 0;
