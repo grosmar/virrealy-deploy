@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+	<title>VIRREALY Dating Game</title>
+	<link rel="stylesheet" href="css/main.css">
+		
+	<script type="text/javascript">
+
+var x = 0, y = 0,
+    vx = 0, vy = 0,
+	ax = 0, ay = 0; az = 0;
+var gx = 0, gy = 0, gz = 0;
+
+var oldx = 0, oldy = 0, oldz = 0;
+
+var speedx = 0; var speedy = 0;
+
+var posX = 200;
+var posY = 400;
+
+var interval;
+
+
+
+
+var pointArr = [{x:300, y:200}, {x:600, y:250}];
+var currPoint = 0;
+
+function setPoint( )
+{
+	document.getElementById("marker").style.left = pointArr[currPoint].x + "px";
+	document.getElementById("marker").style.top = pointArr[currPoint].y + "px";
+}
+
+function hidePoint( )
+{
+	document.getElementById("marker").style.display = "none";
+}
+
+
+
+function start( )
+{
+	setPoint();
+
+	document.getElementById("upper_text").style.display = "none";
+	document.getElementById("ghost_button_containter").style.display = "none";
+	document.getElementById("canvasContainer").style.display = "block";
+
+	if (window.DeviceMotionEvent != undefined) {
+		window.ondevicemotion = function(e) {
+			ax = event.accelerationIncludingGravity.x;
+			ay = event.accelerationIncludingGravity.y;
+			az = event.accelerationIncludingGravity.z;
+
+			if ( e.rotationRate ) {
+				document.getElementById("rotationAlpha").innerHTML = e.rotationRate.alpha;
+				document.getElementById("rotationBeta").innerHTML = e.rotationRate.beta;
+				document.getElementById("rotationGamma").innerHTML = e.rotationRate.gamma;
+			}		
+		}
+
+		interval = setInterval( function() {
+			gx = 0.9 * gx + 0.1 * ax;
+			gy = 0.9 * gy + 0.1 * ay;
+			gz = 0.9 * gz + 0.1 * az;
+			
+			ax -= gx;
+			ay -= gy;
+			az -= gz;
+			
+			document.getElementById("accelerationX").innerHTML = Math.round(ax * 100);
+			document.getElementById("accelerationY").innerHTML = Math.round(ay * 100);
+			document.getElementById("accelerationZ").innerHTML = Math.round(az * 100);
+			
+			
+			//var force = Math.sqrt( ax * ax + az * az );
+			
+			speedx += ax;
+			speedy += ay;
+			
+			oldx = ax;
+			oldy = ay;
+			
+			var c=document.getElementById("c");
+			var ctx=c.getContext("2d");
+			ctx.beginPath();
+			ctx.moveTo(posX,posY);
+			
+			posX -= speedx / 10;
+			posY += speedy / 10;
+			
+			if ( pointArr[currPoint] )
+			{
+				var xVal = Math.pow(Math.abs(posX-pointArr[currPoint].x-25),2);
+				var yVal = Math.pow(Math.abs(posY-pointArr[currPoint].y-50),2);
+				var distance = Math.round(Math.sqrt(xVal + yVal));
+				
+				document.getElementById("distance").innerHTML = "Distance: " + distance;
+				
+				if ( distance < 25 )
+				{
+					currPoint++;
+					
+					if ( pointArr[currPoint] )
+					{
+						setPoint();
+					}
+					else
+					{
+						clearInterval( interval );
+						document.getElementById("distance").style.display = "none";
+						
+						setTimeout( function ()
+						{
+							document.getElementById("canvasContainer").style.display = "none";
+							document.getElementById("ending").style.display = "block";
+						}, 1000 );
+					}
+					
+				}
+			}
+			
+			ctx.lineTo(posX,posY);
+			ctx.lineWidth=5;
+			ctx.strokeStyle = "#c2c1c1";
+			ctx.stroke();
+			
+		}, 50);
+	} 
+	
+	return false;
+}
+
+
+
+
+
+function boundingBoxCheck(){
+	if (x<0) { x = 0; vx = -vx; }
+	if (y<0) { y = 0; vy = -vy; }
+	if (x>document.documentElement.clientWidth-20) { x = document.documentElement.clientWidth-20; vx = -vx; }
+	if (y>document.documentElement.clientHeight-20) { y = document.documentElement.clientHeight-20; vy = -vy; }
+	
+}
+
+</script>
+</head>
+<body id="message_layout">
+	
+	<ul style="display:none">
+	<li>acceleration x: <span id="accelerationX"></span>g</li>
+	<li>acceleration y: <span id="accelerationY"></span>g</li>
+	<li>acceleration z: <span id="accelerationZ"></span>g</li>
+	<li>rotation alpha: <span id="rotationAlpha"></span>degree</li>
+	<li>rotation beta: <span id="rotationBeta"></span>degree</li>
+	<li>rotation gamma: <span id="rotationGamma"></span>degree</li>
+</ul>
+
+<div id="textbox">
+	<div id="upper_text">
+	<p class="black"><span style="font-style: italic;">- Would you tell me, please, which way I ought to go from here?<br>
+- That depends a good deal on where you want to get to.<br>
+- I don't much care where –<br>
+- Then it doesn't matter which way you go.<br></span>
+</p>
+</div>
+<p class="black">
+Stay close each other, and follow your instincts to find something unexpected.</p>
+
+<div class="ghost_button_containter" id="ghost_button_containter">
+					<div class="ghost_button black">
+						<a href="#" onclick="return start()">Let's discover</a>
+					</div>
+				</div>
+</div>
+
+
+<div class="logo"><img src="img/logo.png" width="238" height="239" border="0"></div>
+<center>
+<div style="position:relative; width:1240px; display: none" id="canvasContainer" >
+	<div id="distance" style="position:absolute;">Distance: 0</div>
+	<canvas id="c" width="1240" height="500" style="background-color:#000; opacity:0.5;" >
+	</canvas>
+	<img src="img/green_marker.png" width="50" id="marker" style="position:absolute; left:600px; top:300px" />
+</div>
+</center>
+<div id="ending" style="display:none">
+<center>
+<p class="black" style="font-size:30px">Sometimes we need to get lost, to recognise it was already in front of our eyes that we are looking for.</p><br>
+<div class="ghost_button_containter" id="ghost_button_containter2">
+	<div class="ghost_button black">
+			<a href="stage5.html" >Go on!</a>
+	</div>	
+</div>
+</center>
+
+</div>
+<br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>
