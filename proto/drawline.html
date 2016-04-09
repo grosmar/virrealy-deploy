@@ -46,8 +46,8 @@
 
     if (window.DeviceMotionEvent) {
         window.addEventListener("devicemotion", function(event) {
-            document.getElementById("output2").innerHTML = "acceleration x: " + Math.round(event.acceleration.x*100)/100 +
-                    "y: " + Math.round(event.acceleration.y*100)/100 + " z: " + Math.round(event.acceleration.z*100)/100 +
+            document.getElementById("output2").innerHTML = "acceleration x: " + Math.round(event.acceleration.x*10)/10 +
+                    "<br/> y: " + Math.round(event.acceleration.y*10)/10 + "<br/> z: " + Math.round(event.acceleration.z*10)/10 +
                     " / interval " +
                     event.interval;
 
@@ -61,8 +61,7 @@
             x += speed * Math.cos(angle);
             y += speed * Math.sin(angle);
 
-            document.getElementById("output3").innerHTML = "acceleration x: " + x +
-                    "y: " + y + " speed: " + speed;
+            // document.getElementById("output3").innerHTML = "acceleration x: " + x + "y: " + y + " speed: " + speed;
 
             //x -= Math.abs(vx) > 1 ? vx : 0;
             //y += Math.abs(vy) > 1 ? vy : 0;
