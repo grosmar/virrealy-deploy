@@ -43,7 +43,7 @@ var video, canvas, context, imageData, detector, posit;
 
 if (typeof MediaStreamTrack === 'undefined' ||
     typeof MediaStreamTrack.getSources === 'undefined') {
-  alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
+  //alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
 } else {
   MediaStreamTrack.getSources(gotSources);
 }
