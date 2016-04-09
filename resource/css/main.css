@@ -182,3 +182,21 @@ form {
     margin-top: 1%;
     text-transform: uppercase;
 }
+.stage3_table {
+    margin-bottom: 3%;
+}
+.stage3_table tr td {
+    vertical-align: middle;
+}
+.stage3_table tr td img {
+    display:block;
+}
+.stage3_table tr td h1 {
+    padding: 0 0 3% 3%;
+    font-size: 50px;
+    font-weight: bold;
+}
+.stage3_table tr td p.tabletext {
+    padding-left: 3%;
+    text-align: left!important;
+}

@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+	<title>VIRREALY Dating Game</title>
+	
+	<script type="text/javascript" src="libs/Three.js"></script> 
+
+	<script type="text/javascript" src="svd.js"></script> 
+	<script type="text/javascript" src="posit1.js"></script> 
+	<script type="text/javascript" src="cv.js"></script> 
+	<script type="text/javascript" src="aruco.js"></script> 
+	<script type="text/javascript" src="https://webrtc.github.io/samples/src/js/adapter.js"></script> 
+	<script type="text/javascript" src="https://webrtc.github.io/samples/src/js/common.js"></script> 
+		
+	<link rel="stylesheet" href="css/main.css">
+		
+		<script>
+    var video, canvas, context, imageData, detector, posit;
+    var renderer1, renderer2, renderer3;
+    var scene1, scene2, scene3, scene4;
+    var camera1, camera2, camera3, camera4;
+    var plane1, plane2, model, texture;
+    var step = 0.0;
+
+    var modelSize = 35.0; //millimeters
+
+    function onLoad(){
+      video = document.getElementById("video");
+      canvas = document.getElementById("canvas");
+      context = canvas.getContext("2d");
+    
+      canvas.width = parseInt(canvas.style.width);
+      canvas.height = parseInt(canvas.style.height);
+      
+      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+      if (navigator.getUserMedia){
+        init();
+      }
+    };
+	
+	function gotSources(sourceInfos) {
+  /*for (var i = 0; i !== sourceInfos.length; ++i) {
+    var sourceInfo = sourceInfos[i];
+    var option = document.createElement('option');
+    option.value = sourceInfo.id;
+    if (sourceInfo.kind === 'audio') {
+      option.text = sourceInfo.label || 'microphone ' +
+        (audioSelect.length + 1);
+      audioSelect.appendChild(option);
+    } else if (sourceInfo.kind === 'video') {
+      option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
+      videoSelect.appendChild(option);
+    } else {
+      console.log('Some other kind of source: ', sourceInfo);
+    }
+  }*/
+  
+  console.log(sourceInfos);
+}
+
+if (typeof MediaStreamTrack === 'undefined' ||
+    typeof MediaStreamTrack.getSources === 'undefined') {
+  alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
+} else {
+  MediaStreamTrack.getSources(gotSources);
+}
+
+
+
+function gotDevices2(deviceInfos) {
+  console.log(deviceInfos);
+}
+
+navigator.mediaDevices.enumerateDevices()
+.then(gotDevices2)
+.catch(errorCallback);
+
+function errorCallback(error) {
+  console.log('navigator.getUserMedia error: ', error);
+}
+
+    
+    function init(){
+	
+		/*var videoSource = "3e2cf6ff1f0010910a5ab417130ec86a3b8af4df4536d653d472dd6824f90ac0";
+		var constraints = {
+		video: {deviceId: videoSource ? {exact: videoSource} : undefined}
+	  };*/
+	  
+	  var constraints = {
+		video: {width: 640, height: 360}
+	  };
+	
+      /*navigator.getUserMedia(constraints, function (stream){
+          if (window.URL) {
+            video.src = window.URL.createObjectURL(stream);
+          } else if (video.mozSrcObject !== undefined) {
+            video.mozSrcObject = stream;
+          } else {
+            video.src = stream;
+          }
+        },
+        function(error){
+        }
+      );*/
+	  
+	  navigator.mediaDevices.getUserMedia(constraints)
+	  .then(function(stream) {
+		if (window.URL) {
+            video.src = window.URL.createObjectURL(stream);
+          } else if (video.mozSrcObject !== undefined) {
+            video.mozSrcObject = stream;
+          } else {
+            video.src = stream;
+          }
+	  })
+	  .catch(errorCallback);
+	
+      
+      detector = new AR.Detector();
+      posit = new POS.Posit(modelSize, canvas.width);
+
+      createRenderers();
+      createScenes();
+
+      requestAnimationFrame(tick);
+    };
+
+    function tick(){
+      requestAnimationFrame(tick);
+      
+      if (video.readyState === video.HAVE_ENOUGH_DATA){
+        snapshot();
+
+        var markers = detector.detect(imageData);
+        //drawCorners(markers);
+        updateScenes(markers);
+        
+        render();
+      }
+    };
+
+    function snapshot(){
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    };
+    
+    function drawCorners(markers){
+      var corners, corner, i, j;
+    
+      context.lineWidth = 3;
+
+      for (i = 0; i < markers.length; ++ i){
+        corners = markers[i].corners;
+        
+        context.strokeStyle = "red";
+        context.beginPath();
+        
+        for (j = 0; j < corners.length; ++ j){
+          corner = corners[j];
+          context.moveTo(corner.x, corner.y);
+          corner = corners[(j + 1) % corners.length];
+          context.lineTo(corner.x, corner.y);
+        }
+
+        context.stroke();
+        context.closePath();
+        
+        context.strokeStyle = "green";
+        context.strokeRect(corners[0].x - 2, corners[0].y - 2, 4, 4);
+      }
+    };
+
+    function createRenderers(){
+    
+      renderer3 = new THREE.WebGLRenderer();
+      renderer3.setClearColor(0xffffff, 1);
+      renderer3.setSize(canvas.width, canvas.height);
+      document.getElementById("container").appendChild(renderer3.domElement);
+      
+      scene3 = new THREE.Scene();
+      camera3 = new THREE.OrthographicCamera(-0.5, 0.5, 0.5, -0.5);
+      scene3.add(camera3);
+      
+      scene4 = new THREE.Scene();
+      camera4 = new THREE.PerspectiveCamera(40, canvas.width / canvas.height, 1, 1000);
+      scene4.add(camera4);
+    };
+
+    function render(){
+     
+
+      renderer3.autoClear = false;
+      renderer3.clear();
+      renderer3.render(scene3, camera3);
+      renderer3.render(scene4, camera4);
+    };
+
+    function createScenes(){
+     
+      texture = createTexture();
+      scene3.add(texture);
+    
+      model = createModel();
+      scene4.add(model);
+    };
+    
+   
+    
+    function createTexture(){
+      var texture = new THREE.Texture(video),
+          object = new THREE.Object3D(),
+          geometry = new THREE.PlaneGeometry(1.0, 1.0, 0.0),
+          material = new THREE.MeshBasicMaterial( {map: texture, depthTest: false, depthWrite: false} ),
+          mesh = new THREE.Mesh(geometry, material);
+      
+      object.position.z = -1;
+      
+      object.add(mesh);
+      
+      return object;
+    };
+    
+    function createModel(){
+      var object = new THREE.Object3D(),
+          geometry = new THREE.SphereGeometry(1, 15, 15, Math.PI),
+          texture = THREE.ImageUtils.loadTexture("textures/earth.jpg"),
+          material = new THREE.MeshBasicMaterial( {map: texture} ),
+          mesh = new THREE.Mesh(geometry, material);
+      
+      object.add(mesh);
+      
+      return object;
+    };
+	
+	var wasFound = false;
+
+    function updateScenes(markers){
+      var corners, corner, pose, i;
+      
+      if (markers.length > 0){
+	  
+		if ( wasFound == false )
+		{
+			wasFound = true;
+			document.getElementById("nextArea").style.display = "block";
+			//document.getElementById("song").play();
+		}
+		
+        corners = markers[0].corners;
+        
+        for (i = 0; i < corners.length; ++ i){
+          corner = corners[i];
+          
+          corner.x = corner.x - (canvas.width / 2);
+          corner.y = (canvas.height / 2) - corner.y;
+        }
+        
+        pose = posit.pose(corners);
+        
+      
+        updateObject(model, pose.bestRotation, pose.bestTranslation);
+  
+        step += 0.025;
+        
+        model.rotation.z -= step;
+      }
+      
+      texture.children[0].material.map.needsUpdate = true;
+    };
+    
+    function updateObject(object, rotation, translation){
+      object.scale.x = modelSize;
+      object.scale.y = modelSize;
+      object.scale.z = modelSize;
+      
+      object.rotation.x = -Math.asin(-rotation[1][2]);
+      object.rotation.y = -Math.atan2(rotation[0][2], rotation[2][2]);
+      object.rotation.z = Math.atan2(rotation[1][0], rotation[1][1]);
+
+      object.position.x = translation[0];
+      object.position.y = translation[1];
+      object.position.z = -translation[2];
+    };
+    
+
+    window.onload = onLoad;
+  </script>
+</head>
+<body id="message_layout">
+	
+<video id="video" width=320 height=240 autoplay="true" style="display:none;"></video>
+
+<div id="textbox">
+	<p class="black">You’re almost there.<br>
+	Remember: don’t just look, but see!<br>
+	If you find the sign, there will be no return.<br>
+	<img src="img/code.jpg"></p>
+	<center>
+	<div style="overflow:hidden; height: 460px">
+      <canvas id="canvas" style="width: 640px; height: 360px; border: solid 1px black; display: none"></canvas>
+      <div id="container" style="width: 640px; height: 360px; border: solid 1px black; background: green;"></div>
+	</div>
+</div>
+
+<div id="nextArea" style="display:none;">
+	
+	<center>
+		<p class="black">Here you are in front of the apple of love.<br>The legend says that if you kiss each other here, then after you can hear the fairies singing your song on silent nights</p>
+		<audio id="song" controls>
+	  <source src="song.mp3" type="audio/mpeg">
+	</audio>
+	</center>
+	<div class="ghost_button_containter"  id="nextButton">
+		<div class="ghost_button black">
+			<a href="stage6.html">Go on</a>
+		</div>
+	</div>
+		
+	
+</div>
+
+<div class="logo"><img src="img/logo.png" width="238" height="239" border="0"></div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project version="2">
+  <!-- Output SWF options -->
+  <output>
+    <movie outputType="Application" />
+    <movie input="" />
+    <movie path="bin\VirrealyClient.js" />
+    <movie fps="0" />
+    <movie width="0" />
+    <movie height="0" />
+    <movie version="0" />
+    <movie minorVersion="0" />
+    <movie platform="JavaScript" />
+    <movie background="#FFFFFF" />
+  </output>
+  <!-- Other classes to be compiled into your SWF -->
+  <classpaths>
+    <class path="src" />
+    <class path=".haxelib\hexannotation\git\src" />
+    <class path=".haxelib\hexcore\git\src" />
+    <class path=".haxelib\hexinject\git\src" />
+    <class path=".haxelib\hexioc\git\src" />
+    <class path=".haxelib\hexmvc\git\src" />
+    <class path=".haxelib\hexservice\git\src" />
+    <class path=".haxelib\hexstate\git\src" />
+    <class path=".haxelib\hexunit\git\src" />
+  </classpaths>
+  <!-- Build options -->
+  <build>
+    <option directives="" />
+    <option flashStrict="False" />
+    <option noInlineOnDebug="False" />
+    <option mainClass="virrealyclient.VirrealyClient" />
+    <option enabledebug="False" />
+    <option additional="-resource src/virrealyclient/configuration/ModuleConfiguration.xml@moduleConfiguration&#xA;-resource src/virrealyclient/configuration/OrderConfiguration.xml@orderConfiguration&#xA;-resource src/virrealyclient/configuration/ServiceConfiguration.xml@serviceConfiguration&#xA;-resource src/virrealyclient/configuration/ViewConfigurationJS.xml@viewConfigurationJS" />
+  </build>
+  <!-- haxelib libraries -->
+  <haxelib>
+    <!-- example: <library name="..." /> -->
+  </haxelib>
+  <!-- Class files to compile (other referenced classes will automatically be included) -->
+  <compileTargets>
+    <compile path="src\Main.hx" />
+    <compile path="src\virrealyclient\VirrealyClient.hx" />
+  </compileTargets>
+  <!-- Paths to exclude from the Project Explorer tree -->
+  <hiddenPaths>
+    <hidden path="obj" />
+  </hiddenPaths>
+  <!-- Executed before build -->
+  <preBuildCommand>neko ./tools/hex3rdPartyTools/utilities/xml/GenerateImports/bin/GenerateImports.n  -dir ./src/virrealyclient/configuration -output ./src/Imports.hx</preBuildCommand>
+  <!-- Executed after build -->
+  <postBuildCommand alwaysRun="False" />
+  <!-- Other project options -->
+  <options>
+    <option showHiddenPaths="False" />
+    <option testMovie="Webserver" />
+    <option testMovieCommand="bin/index.html" />
+  </options>
+  <!-- Plugin storage -->
+  <storage />
+</project>
