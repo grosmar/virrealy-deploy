@@ -71,7 +71,7 @@ function errorCallback(error) {
 	  };*/
 	  
 	  var constraints = {
-		video: {width: 640, height: 360}
+		video: {width: 1280, height: 720}
 	  };
 	
       /*navigator.getUserMedia(constraints, function (stream){

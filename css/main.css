@@ -94,6 +94,9 @@ video#bgvid {
     font-weight: normal;
     margin-bottom: 5%;
 }
+#textbox h1.header.black {
+    color: #000000;
+}
 #textbox h1.header span {
     font-size: 70px;
     font-weight: bold;

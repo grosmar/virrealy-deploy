@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+	<title>VIRREALY Dating Game</title>
+	<link rel="stylesheet" href="css/main.css">
+		
+	<script>
+	function validate()
+	{
+		if ( document.getElementById("password").value.toLowerCase() == "alice" )
+		{
+			location.href = "stage3.html";
+		}
+		else
+		{
+			document.getElementsByClassName("error")[0].style.display = "block";
+		}
+		
+		return false;
+	}
+	</script>
+</head>
+<body id="message_layout">
+
+<div id="textbox">
+	<h1 class="header black"><span>Coming soon...</span></h1>
+</div>
+
+<div class="logo"><img src="img/logo.png" width="238" height="239" border="0"></div>
+
+</body>
+</html>
