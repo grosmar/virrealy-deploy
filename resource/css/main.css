@@ -60,7 +60,6 @@ video#bgvid {
     -moz-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
-    background: url(polina.jpg) no-repeat;
     background-size: cover;
 }
 .frame_overlay {
@@ -76,7 +75,7 @@ video#bgvid {
     -o-background-size: cover;
     background-size: cover;
 }
-.frame_overlay .logo {
+.logo {
     position: absolute;
     z-index: 15;
     right: 20px;
@@ -85,7 +84,7 @@ video#bgvid {
 #textbox {
     position: relative;
     z-index: 100;
-    padding-top: 150px;
+    padding-top: 5%;
 
 }
 #textbox h1.header {
@@ -94,7 +93,7 @@ video#bgvid {
     font-size: 45px;
     text-align: center;
     font-weight: normal;
-    margin-bottom: 120px;
+    margin-bottom: 5%;
 }
 #textbox h1.header span {
     font-size: 70px;
@@ -107,12 +106,17 @@ video#bgvid {
     font-size:30px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 120px;
+    margin-bottom: 5%;
 }
-#textbox h2 strong {
+#textbox h2 strong,
+#textbox p strong {
     font-weight: 800;
 }
-
+#textbox p {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 5%;
+}
 .ghost_button_containter {
     text-align: center;
 }
@@ -141,4 +145,11 @@ video#bgvid {
 }
 .ghost_button.black a {
     color: #000000;
+}
+#message_layout {
+    background: url(../img/text_bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }

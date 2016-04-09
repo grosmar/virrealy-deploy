@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
-	<title>Video test</title>
+	<title>VIRREALY Dating Game</title>
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -27,30 +27,5 @@
 	<div class="logo"><img src="img/logo.png" width="238" height="239" border="0"></div>
 </div>
 
-<script>
-// Find the right method, call on correct element
-function launchIntoFullscreen(element) {
-  if(element.requestFullscreen) {
-    element.requestFullscreen();
-  } else if(element.mozRequestFullScreen) {
-    element.mozRequestFullScreen();
-  } else if(element.webkitRequestFullscreen) {
-    element.webkitRequestFullscreen();
-  } else if(element.msRequestFullscreen) {
-    element.msRequestFullscreen();
-  }
-}
-
-launchIntoFullscreen(document.documentElement); // the whole page
-
-var myVideo = document.getElementById('bgvid');
-
-myVideo.addEventListener('canplay', function() {
-  myVideo.play();
-});
-
-myVideo.load();
-myVideo.play();
-</script>
 </body>
 </html>
