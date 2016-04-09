@@ -12,52 +12,37 @@
 </div>
 <div id="output3">
 </div>
-<div id="output4">
-</div>
 
 <canvas id="myCanvas" width="720" height="1280" style="border:1px solid #d3d3d3;">
     Your browser does not support the HTML5 canvas tag.</canvas>
 
 
 <script type="text/javascript">
-    var gn = new GyroNorm();
+    function handleMotionEvent(event) {
 
-    gn.init().then(function(){
-        gn.start(function(data){
+        var x = event.accelerationIncludingGravity.x;
+        var y = event.accelerationIncludingGravity.y;
+        var z = event.accelerationIncludingGravity.z;
 
-            var force = Math.round(Math.sqrt(data.dm.gx*data.dm.gx+data.dm.gy*data.dm.gy)*100)/100;
-            var force2 = Math.round(Math.sqrt(data.dm.x*data.dm.x+data.dm.y*data.dm.y)*100)/100;
-console.log(force);
-console.log(force2);
-            document.getElementById("output1").innerHTML = "data.do.alpha: " + data.do.alpha + "data.do.beta: " + data.do.beta + " data.do.gamma: " + data.do.gamma + " data.do.absolute: " + data.do.absolute;
-            document.getElementById("output2").innerHTML = "force2 : " + force2 + "data.dm.x: " + data.dm.x + "data.dm.y: " + data.dm.y + " data.dm.z: " + data.dm.z;
-            document.getElementById("output3").innerHTML = "force : " +force+" data.dm.gx: " + data.dm.gx + "data.dm.gy: " + data.dm.gy + " data.dm.gz: " + data.dm.gz;
-            document.getElementById("output4").innerHTML = "data.dm.alpha: " + data.dm.alpha + "data.dm.beta: " + data.dm.beta + " data.dm.gamma: " + data.dm.gamma;
+        var force = Math.round(Math.sqrt(x*x+y*y)*100)/100;
+        console.log(x, y, z, force);
+        document.getElementById("output1").innerHTML = "x: " + x + " y: " + y + " z: " + z;
+        document.getElementById("output2").innerHTML = "force: " + force;
+    }
 
+    window.addEventListener("devicemotion", handleMotionEvent, true);
 
+    function handleOrientation(event) {
+        var absolute = event.absolute;
+        var alpha    = event.alpha;
+        var beta     = event.beta;
+        var gamma    = event.gamma;
 
-            // Process:
-            // data.do.alpha    ( deviceorientation event alpha value )
-            // data.do.beta     ( deviceorientation event beta value )
-            // data.do.gamma    ( deviceorientation event gamma value )
-            // data.do.absolute ( deviceorientation event absolute value )
+        console.log(absolute, alpha, beta, gamma);
+        document.getElementById("output3").innerHTML = "absolute : " + absolute + " alpha: " + alpha + " beta: " + beta + " gamma: " + gamma;
+    }
 
-            // data.dm.x        ( devicemotion event acceleration x value )
-            // data.dm.y        ( devicemotion event acceleration y value )
-            // data.dm.z        ( devicemotion event acceleration z value )
-
-            // data.dm.gx       ( devicemotion event accelerationIncludingGravity x value )
-            // data.dm.gy       ( devicemotion event accelerationIncludingGravity y value )
-            // data.dm.gz       ( devicemotion event accelerationIncludingGravity z value )
-
-            // data.dm.alpha    ( devicemotion event rotationRate alpha value )
-            // data.dm.beta     ( devicemotion event rotationRate beta value )
-            // data.dm.gamma    ( devicemotion event rotationRate gamma value )
-        });
-    }).catch(function(e){
-        // Catch if the DeviceOrientation or DeviceMotion is not supported by the browser or device
-        console.log(e);
-    });
+    window.addEventListener('deviceorientation', handleOrientation);
 </script>
 </body>
 </html>
