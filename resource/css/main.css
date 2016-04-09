@@ -126,6 +126,11 @@ video#bgvid {
 .ghost_button_containter {
     text-align: center;
 }
+.stage3_table tr td .ghost_button_containter,
+.stage3_table tr td .error{
+    text-align: left;
+    margin-left: 3%;
+}
 .ghost_button {
     position: relative;
     z-index: 100;
