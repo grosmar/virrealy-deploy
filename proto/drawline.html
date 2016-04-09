@@ -6,6 +6,8 @@
 </head>
 <body>
 
+<div id="output1">
+</div>
 <div id="output2">
 </div>
 
@@ -27,13 +29,23 @@
     ctx.moveTo(x, y);
 
     if (window.DeviceMotionEvent) {
+        window.addEventListener('deviceorientation', function(event) {
+            document.getElementById("output1").innerHTML = event.alpha + ' : ' + event.beta + ' : ' + event.gamma + " absolute : " + DeviceOrientationEvent.absolute;
+        });
+
+
+    } else {
+        document.getElementById("doEvent").innerHTML = "deviceorientation Not supported."
+    }
+
+    if (window.DeviceMotionEvent) {
         window.addEventListener("devicemotion", function(event) {
            console.log(event.acceleration);
             document.getElementById("output2").innerHTML = "acceleration x: " + Math.round(event.acceleration.x) +
                     "y: " + Math.round(event.acceleration.y) + " z: " + Math.round(event.acceleration.z) +
                     " / interval " +
                     event.interval;
-            
+
             vx += event.acceleration.x/3;
             vy += event.acceleration.y/3;
 
