@@ -51,7 +51,7 @@
                     " / interval " +
                     event.interval;
 
-            speed += event.acceleration.y > 0 ? event.acceleration.y/3 : 0;
+            speed += Math.abs(event.acceleration.y);
             //vy += event.acceleration.y/3;
 
             // vx *= friction;
